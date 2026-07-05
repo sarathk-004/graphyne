@@ -1,0 +1,10 @@
+{
+  "name": "bigo-arena",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Automated Big-O + system design analyzer that runs as a Claude Code PostToolUse hook on this repo.",
+  "dependencies": {
+    "typescript": "^5.7.3"
+  }
+}
