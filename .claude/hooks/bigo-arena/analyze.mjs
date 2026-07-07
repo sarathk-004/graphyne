@@ -38,6 +38,16 @@ function readStdin() {
 }
 
 async function extractFilePath() {
+  // CLI usage (`node analyze.mjs <path>`) takes priority and must never
+  // block on stdin - only the PostToolUse hook invocation (no argv,
+  // JSON payload piped on stdin) needs to read stdin at all. Reading
+  // stdin unconditionally hung indefinitely when run from a plain
+  // script/non-interactive shell with no argv and no piped input,
+  // since `end` never fires without EOF.
+  if (process.argv[2]) {
+    return process.argv[2];
+  }
+
   const raw = await readStdin();
   if (raw) {
     try {
